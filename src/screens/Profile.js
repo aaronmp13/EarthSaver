@@ -39,9 +39,13 @@ const styles = StyleSheet.create({
       <View style={styles.container}>
         <StatusBar style='light-content' />
         <View style={styles.profile}>
-          <Text style={styles.profileText}>{user}</Text>
+          <Text style={styles.profileText}>{user}</Text> 
+          //user profile text, taken from the user object's name
         </View>
-        <Text style={styles.text}></Text>
+        <Text style={styles.settingsText}></Text>
+        //user settings text viewed above boolean buttons
+        <Text style={styles.rankText}></Text>
+        //user rank viewed at the bottom of the screen
       </View>
     );
   }
