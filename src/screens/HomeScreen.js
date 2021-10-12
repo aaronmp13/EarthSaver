@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Firebase from '../firebase/config';
+import { AuthenticatedUserContext } from '../firebase/AuthenticatedUserProvider';
 
 const styles = StyleSheet.create({
     container: {
@@ -10,14 +12,22 @@ const styles = StyleSheet.create({
     },
   });
 
-class HomeScreen extends React.Component {
-  render() {
+  export default function HomeScreen() {
+    const { user } = useContext(AuthenticatedUserContext);
+    const handleSignOut = async () => {
+      try {
+        await auth.signOut();
+      } catch (error) {
+        console.log(error);
+      }
+    };
     return (
       <View style={styles.container}>
-        <Text>You have (undefined) friends.</Text>
+        <StatusBar style='dark-content' />
+        <View style={styles.row}>
+          <Text style={styles.title}>Welcome {user.email}!</Text>
+        </View>
+        <Text style={styles.text}>Your UID is: {user.uid} </Text>
       </View>
     );
   }
-}
-
-export default HomeScreen;
