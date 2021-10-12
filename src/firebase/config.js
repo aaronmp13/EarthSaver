@@ -1,7 +1,5 @@
-import * as firebase from 'firebase';
-import '@firebase/auth';
-import '@firebase/firestore';
-
+import firebase from 'firebase/app'
+//import {auth} from 'firebase/auth'
 
 // Your web app's Firebase configurationz
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -16,5 +14,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+var app = null
+if (!firebase.apps.length) {
+  app = firebase.initializeApp({});
+}else {
+  app = firebase.app(); // if already initialized, use that one
+}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Firebase from '../firebase/config';
-import { AuthenticatedUserContext } from '../firebase/AuthenticatedUserProvider';
 
 const styles = StyleSheet.create({
     container: {
@@ -13,7 +12,6 @@ const styles = StyleSheet.create({
   });
 
   export default function HomeScreen() {
-    const { user } = useContext(AuthenticatedUserContext);
     const handleSignOut = async () => {
       try {
         await auth.signOut();
@@ -23,11 +21,10 @@ const styles = StyleSheet.create({
     };
     return (
       <View style={styles.container}>
-        <StatusBar style='dark-content' />
         <View style={styles.row}>
-          <Text style={styles.title}>Welcome {user.email}!</Text>
+          <Text style={styles.title}>Welcome !</Text>
         </View>
-        <Text style={styles.text}>Your UID is: {user.uid} </Text>
+        <Text style={styles.text}>Your UID is:s </Text>
       </View>
     );
   }
