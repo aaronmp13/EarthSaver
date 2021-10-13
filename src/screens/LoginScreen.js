@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import Firebase from '../firebase/config';
+import { useState } from 'react';
 
 const auth = Firebase.auth();
 
