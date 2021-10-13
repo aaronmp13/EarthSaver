@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import Firebase from '../firebase/config';
 import { useState } from 'react';
 
@@ -37,29 +37,20 @@ function LoginScreen({navigation}) {
   
     return (
       <View style={styles.container}>
-        <Text>Login</Text>
-        <TextInput placeholder="email@email.com" keyboardType="password" onChangeText={onChangeEmail}/>
-      <TextInput placeholder="password" keyboardType="password" onChangeText={onChangePassword}/>
-        <Button
-        onPress={onLogin}
-        backgroundColor='#f57c00'
-        title='Login'
-        tileColor='#fff'
-        titleSize={20}
-        containerStyle={{
-          marginBottom: 24
-        }}
-      />
-          <Button
-        onPress={toSignUp}
-        backgroundColor='#f57c00'
-        title='Create an Account'
-        tileColor='#fff'
-        titleSize={20}
-        containerStyle={{
-          marginBottom: 24
-        }}
-      />
+        <Text style={{fontSize: 20, padding: 20}}>Enter Credentials</Text>
+        <TextInput style={{padding: 5}} placeholder="Email" keyboardType="email-address" onChangeText={onChangeEmail}/>
+        <TextInput style={{padding: 20}} placeholder="Password" keyboardType="visible-password" onChangeText={onChangePassword}/>
+
+      <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 200, backgroundColor:'dodgerblue', alignItems: 'center'}} onPress={onLogin}>
+        <Text style={{color: '#ffff'}}>L O G I N</Text>
+      </TouchableOpacity>
+
+      <Text style={{marginTop: 20}}>Don't have an account?</Text>
+
+      <TouchableOpacity onPress={toSignUp}>
+        <Text style={{color: 'dodgerblue'}}>Sign Up</Text>
+      </TouchableOpacity>
+
       </View>
     );
 }
