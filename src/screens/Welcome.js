@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+      fontFamily: 'Raleway-Black',
     },
 
     title: {
@@ -24,7 +25,7 @@ class Welcome extends React.Component {
         </View>
 
         <View style={{flex: 0.5}}>
-          <Text style={{fontSize: 50, alignItems: 'center'}}>Earth Saver</Text>
+          <Text style={{fontSize: 40, alignItems: 'center'}}>Earth Saver</Text>
         </View>
 
         <View style={{flex: 0.5}}>
@@ -34,7 +35,7 @@ class Welcome extends React.Component {
         <View style={{flex: 2,}}>
 
           <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 100, backgroundColor:'dodgerblue', alignItems: 'center'}} onPress={()=>this.props.navigation.navigate('Login')}>
-            <Text style={{color: 'white'}}>L O G I N</Text>
+            <Text style={{color: 'white'}}>E N T E R</Text>
           </TouchableOpacity>
         </View>
 

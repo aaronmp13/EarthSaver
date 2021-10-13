@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import Firebase from '../firebase/config';
 
 const styles = StyleSheet.create({
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 12,
-    fontWeight: "bolb",
+    fontWeight: "bold",
     color: "#808080"
   },
 });
@@ -37,15 +37,18 @@ const styles = StyleSheet.create({
   export default function Profile() {
     return (
       <View style={styles.container}>
-        <StatusBar style='light-content' />
-        <View style={styles.profile}>
-          <Text style={styles.profileText}>{user}</Text> 
-          //user profile text, taken from the user object's name
-        </View>
-        <Text style={styles.settingsText}></Text>
-        //user settings text viewed above boolean buttons
-        <Text style={styles.rankText}></Text>
-        //user rank viewed at the bottom of the screen
+
       </View>
+    //   // <View style={styles.container}>
+    //   //   <StatusBar style='light-content' />
+    //   //   <View style={styles.profile}>
+    //   //     <Text style={styles.profileText}>{user}</Text> 
+    //   //     //user profile text, taken from the user object's name
+    //   //   </View>
+    //   //   <Text style={styles.settingsText}></Text>
+    //   //   //user settings text viewed above boolean buttons
+    //   //   <Text style={styles.rankText}></Text>
+    //   //   //user rank viewed at the bottom of the screen
+    //   // </View>
     );
   }

@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createSwitchNavigator } from "react-navigation";
 import HomeScreen from './src/screens/HomeScreen'
 import LoginScreen from './src/screens/LoginScreen'
 import SignUpScreen from  './src/screens/SignUpScreen'
+import LeaderBoardScreen from  './src/screens/LeaderBoardScreen'
+import Welcome from './src/screens/Welcome'
+import Profile from './src/screens/Profile'
+import Feed from './src/screens/Feed'
 import { Provider } from 'react-redux';
 import store from './src/store'
 
-
+// const Switch = createSwitchNavigator();
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   // Set an initializing state whilst Firebase connects
@@ -26,28 +33,54 @@ const App = () => {
     //return subscriber; // unsubscribe on unmount
   }, []);
 
-  return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+
+  const StackNav = () => {
+    return (
+        <Stack.Navigator initialRouteName="Welcome">
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+          />
           <Stack.Screen
             name="Login"
             component={LoginScreen}
           />
           <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'Welcome' }}
-          />
-          <Stack.Screen
             name="SignUp"
             component={SignUpScreen}
+            options={{ title: 'Sign Up' }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={TabNav}
+            options={{ title: 'Earth Saver' }}
           />
         </Stack.Navigator>
+
+    );
+  }
+
+
+
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <StackNav/>
       </NavigationContainer>
     </Provider>
   );
 };
+
+const TabNav = () => {
+  return(
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      {/* <Tab.Screen name="Feed" component={Feed} /> */}
+      <Tab.Screen name="Leaderboards" component={LeaderBoardScreen} />
+      {/* <Tab.Screen name="Profile" component={Profile}/> */}
+    </Tab.Navigator>
+  );
+}
 
 export default App;
 
