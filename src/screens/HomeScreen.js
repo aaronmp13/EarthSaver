@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     return (
       <View style={styles.container}>
         <View style={styles.row}>
-          <Text style={styles.title}>Welcome !</Text>
+          <Text style={styles.title}>Thank you for logging in!</Text>
         </View>
         <Text style={styles.text}>Your UID is:s </Text>
       </View>

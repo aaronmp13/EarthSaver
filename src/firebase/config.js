@@ -1,5 +1,5 @@
 import firebase from 'firebase/app'
-//import {auth} from 'firebase/auth'
+import 'firebase/auth';
 
 // Your web app's Firebase configurationz
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -9,14 +9,16 @@ const firebaseConfig = {
   projectId: "earthsaver-6318e",
   storageBucket: "earthsaver-6318e.appspot.com",
   messagingSenderId: "287401073940",
-  appId: "1:287401073940:web:aacf543269007657653601",
-  measurementId: "G-TNYYCBPNGC"
+  appId: "1:287401073940:web:e9328cb3951d1465653601",
+  measurementId: "G-0JCWE0S3FP"
 };
 
 // Initialize Firebase
-var app = null
+let Firebase;
 if (!firebase.apps.length) {
-  app = firebase.initializeApp({});
+  Firebase = firebase.initializeApp(firebaseConfig);
 }else {
-  app = firebase.app(); // if already initialized, use that one
+  Firebase = firebase.app(); // if already initialized, use that one
 }
+
+export default Firebase

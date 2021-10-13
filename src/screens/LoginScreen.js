@@ -1,5 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import Firebase from '../firebase/config';
+
+const auth = Firebase.auth();
 
 const styles = StyleSheet.create({
     container: {
@@ -10,14 +13,54 @@ const styles = StyleSheet.create({
     },
   });
 
-class LoginScreen extends React.Component {
-  render() {
+function LoginScreen({navigation}) {
+  const [email, onChangeEmail] = React.useState("");
+  const [password, onChangePassword] = React.useState("");
+
+  const onLogin = async () => {
+    try {
+      if (email !== '' && password !== '') {
+        console.log("hit")
+        await auth.signInWithEmailAndPassword(email, password);
+        navigation.navigate('Home')
+      }
+    } catch (error) {
+      console.log("invalid")
+      //setLoginError(error.message);
+    }
+  };
+
+  const toSignUp = async () => {
+    navigation.navigate('SignUp')
+  };
+  
     return (
       <View style={styles.container}>
-        <Text>You have (undefined) friends.</Text>
+        <Text>Login</Text>
+        <TextInput placeholder="email@email.com" keyboardType="password" onChangeText={onChangeEmail}/>
+      <TextInput placeholder="password" keyboardType="password" onChangeText={onChangePassword}/>
+        <Button
+        onPress={onLogin}
+        backgroundColor='#f57c00'
+        title='Login'
+        tileColor='#fff'
+        titleSize={20}
+        containerStyle={{
+          marginBottom: 24
+        }}
+      />
+          <Button
+        onPress={toSignUp}
+        backgroundColor='#f57c00'
+        title='Create an Account'
+        tileColor='#fff'
+        titleSize={20}
+        containerStyle={{
+          marginBottom: 24
+        }}
+      />
       </View>
     );
-  }
 }
 
 export default LoginScreen;
