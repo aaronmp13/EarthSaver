@@ -1,15 +1,12 @@
 import React from 'react';
 import * as ImagePicker from "expo-image-picker"
-import { SectionList, ScrollView, StyleSheet, Text, View, Button, Image,  } from 'react-native';
+import { SectionList, ScrollView, StyleSheet, Text, View, Button, Image} from 'react-native';
 import Firebase from '../firebase/config';
+import * as firebase from "firebase";
 import * as Font from 'expo-font';
 import uuid from "uuid";
 
-
 const auth = Firebase.auth();
-
-
-
 
 const DATA = [
     {
@@ -38,7 +35,6 @@ async function uploadImageAsync(uri) {
       console.log(e);
       reject(new TypeError("Network request failed"));
     };
-    console.log("yeus")
     xhr.responseType = "blob";
     xhr.open("GET", uri, true);
     xhr.send(null);
@@ -64,13 +60,10 @@ class HomeScreen extends React.Component {
       const {
         status,
       } = await ImagePicker.getMediaLibraryPermissionsAsync();
-      {/*if (status !== "granted") {
-      alert("Sorry, we need camera roll permissions to make this work!");
-      }*/}
     }
   }
   _pickImage = async () => {
-    let pickerResult = ImagePicker.launchImageLibraryAsync({
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
     }).then(alert("Image Library Access Failed"));
@@ -85,7 +78,7 @@ class HomeScreen extends React.Component {
       this.setState({ uploading: true });
 
       if (!pickerResult.cancelled) {
-        const uploadUrl = uploadImageAsync(pickerResult.uri);
+        const uploadUrl = await uploadImageAsync(pickerResult.uri);
         this.setState({ image: uploadUrl });
       }
     } catch (e) {

@@ -17,10 +17,10 @@ import uuid from "uuid";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAlZruO2T_JNOWn4ysfX6AryR6Dzm_VVaA",
-  authDomain: "blobtest-36ff6.firebaseapp.com",
-  databaseURL: "https://blobtest-36ff6.firebaseio.com",
-  storageBucket: "blobtest-36ff6.appspot.com",
-  messagingSenderId: "506017999540",
+  authDomain: "earthsaver-6318e.firebaseapp.com",
+  databaseURL: "https://earthsaver-6318e.firebaseio.com",
+  storageBucket: "earthsaver-6318e.appspot.com",
+  messagingSenderId: "287401073940",
 };
 
 if (!firebase.apps.length) {
