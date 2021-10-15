@@ -34,7 +34,6 @@ const App = () => {
     //return subscriber; // unsubscribe on unmount
   }, []);
 
-
   const StackNav = () => {
     return (
         <Stack.Navigator initialRouteName="Welcome">

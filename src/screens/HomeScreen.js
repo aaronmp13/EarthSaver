@@ -28,7 +28,48 @@ const Item = ({ title }) => (
 );
 
 class HomeScreen extends React.Component {
-  
+  state = {
+    image: null,
+    uploading: false,
+  };
+
+  async componentDidMount() {
+    if (Platform.OS !== "web") {
+      const {
+        status,
+      } = await ImagePicker.getMediaLibraryPermissionsAsync().then(alert("Sorry, we need camera roll permissions to make this work"));
+      if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  }
+  _pickImage = async () => {
+    let pickerResult = ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    }).then(alert("Image Library Access Failed"));
+
+    console.log({ pickerResult });
+
+    this._handleImagePicked(pickerResult);
+  };
+
+  _handleImagePicked = async (pickerResult) => {
+    try {
+      this.setState({ uploading: true });
+
+      if (!pickerResult.cancelled) {
+        const uploadUrl = uploadImageAsync(pickerResult.uri);
+        this.setState({ image: uploadUrl });
+      }
+    } catch (e) {
+      console.log(e);
+      alert("Upload failed, sorry :(");
+    } finally {
+      this.setState({ uploading: false });
+    }
+  };
+
   render() {
       const renderItem = ({ item }) => (
             <Item title={item.title} />
@@ -42,6 +83,7 @@ class HomeScreen extends React.Component {
   };
 
       console.log(auth.DATA)
+      let { image } = this.state;
 
       return (
         <View style={styles.container}>
