@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createSwitchNavigator } from "react-navigation";
 import HomeScreen from './src/screens/HomeScreen'
+import InfoScreen from './src/screens/InfoScreen'
 import LoginScreen from './src/screens/LoginScreen'
 import SignUpScreen from  './src/screens/SignUpScreen'
 import LeaderBoardScreen from  './src/screens/LeaderBoardScreen'
@@ -74,9 +75,11 @@ const App = () => {
 const TabNav = () => {
   return(
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home Page" component={HomeScreen} />
       {/* <Tab.Screen name="Feed" component={Feed} /> */}
       <Tab.Screen name="Leaderboards" component={LeaderBoardScreen} />
+      {/* <Tab.Screen name="Profile" component={Profile}/> */}
+      <Tab.Screen name="Info" component={InfoScreen} />
       {/* <Tab.Screen name="Profile" component={Profile}/> */}
     </Tab.Navigator>
   );

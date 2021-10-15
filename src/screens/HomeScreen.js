@@ -1,9 +1,12 @@
 import React from 'react';
-import { SectionList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import ImagePicker from "expo-image-picker"
+import { SectionList, ScrollView, StyleSheet, Text, View, Button, Image,  } from 'react-native';
 import Firebase from '../firebase/config';
+import * as Font from 'expo-font';
 
 
 const auth = Firebase.auth();
+
 
 
 
@@ -25,6 +28,7 @@ const Item = ({ title }) => (
 );
 
 class HomeScreen extends React.Component {
+  
   render() {
       const renderItem = ({ item }) => (
             <Item title={item.title} />
@@ -34,8 +38,8 @@ class HomeScreen extends React.Component {
           await auth.signOut();
         } catch (error) {
           console.log(error);
-        }
-      };
+        }   
+  };
 
       console.log(auth.DATA)
 
@@ -49,19 +53,27 @@ class HomeScreen extends React.Component {
                 <Text style={styles.header}>{title}</Text>
                 )}
             />
+            <Button
+            onPress={this._pickImage}
+            title={'Upload Image'}
+            style={styles.item}
+            >
+            </Button>
         </View>
       );
     }
-  } 
+} 
 
-  export default HomeScreen;
 
-  const styles = StyleSheet.create({
+export default HomeScreen;
+
+
+const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
       justifyContent: 'center',
-      fontFamily: 'Raleway-Black',
+      //fontFamily: 'Raleway-Black',
     },
 
     item: {
@@ -72,18 +84,18 @@ class HomeScreen extends React.Component {
         borderRadius: 10,
         shadowOpacity: 20,
         shadowColor: 'black',
-        fontFamily: "Roboto"
+        //fontFamily: "Roboto"
     },
 
     title: {
       fontSize: 25,
       color: 'white',
-      fontFamily: "Roboto",
+      //fontFamily: "Roboto",
     },
     header: {
         fontSize: 25,
         marginHorizontal: 20,
         marginVertical: 0,
-        fontFamily: "Roboto"
+        //fontFamily: "Roboto"
     },
   });

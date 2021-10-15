@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import Firebase from '../firebase/config';
 
 const styles = StyleSheet.create({
@@ -8,10 +8,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#F2F2F2',
       alignItems: 'center',
       justifyContent: 'center',
+      fontFamily: 'Raleway-Black'
     },
   });
 
-export default function infoScreen() {
+class InfoScreen extends React.Component {
+  render(){
     return (
       <View style={styles.container}>
         <StatusBar style='dark-content' />
@@ -24,3 +26,6 @@ export default function infoScreen() {
       </View>
     );
   }
+}
+
+export default InfoScreen;
