@@ -1,8 +1,9 @@
 import React from 'react';
-import ImagePicker from "expo-image-picker"
+import * as ImagePicker from "expo-image-picker"
 import { SectionList, ScrollView, StyleSheet, Text, View, Button, Image,  } from 'react-native';
 import Firebase from '../firebase/config';
 import * as Font from 'expo-font';
+import uuid from "uuid";
 
 
 const auth = Firebase.auth();
@@ -27,6 +28,31 @@ const Item = ({ title }) => (
   </ScrollView>
 );
 
+async function uploadImageAsync(uri) {
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function (e) {
+      console.log(e);
+      reject(new TypeError("Network request failed"));
+    };
+    console.log("yeus")
+    xhr.responseType = "blob";
+    xhr.open("GET", uri, true);
+    xhr.send(null);
+  });
+
+  const ref = firebase.storage().ref().child(uuid.v4());
+  const snapshot = await ref.put(blob);
+
+  // We're done with the blob, close and release it
+  blob.close();
+
+  return await snapshot.ref.getDownloadURL();
+}
+
 class HomeScreen extends React.Component {
   state = {
     image: null,
@@ -37,10 +63,10 @@ class HomeScreen extends React.Component {
     if (Platform.OS !== "web") {
       const {
         status,
-      } = await ImagePicker.getMediaLibraryPermissionsAsync().then(alert("Sorry, we need camera roll permissions to make this work"));
-      if (status !== "granted") {
+      } = await ImagePicker.getMediaLibraryPermissionsAsync();
+      {/*if (status !== "granted") {
       alert("Sorry, we need camera roll permissions to make this work!");
-      }
+      }*/}
     }
   }
   _pickImage = async () => {
