@@ -2,8 +2,11 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import Firebase from '../firebase/config';
 import { useState } from 'react';
+import 'firebase/firestore';
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
+userRef = db.collection("users")
 
 const styles = StyleSheet.create({
     container: {
@@ -24,9 +27,17 @@ function SignUpScreen({navigation}) {
   const onSignup = async () => {
     try {
       if (email !== '' && password !== '') {
-          console.log("signup")
+        console.log("signup")
         await auth.createUserWithEmailAndPassword(email, password);
+        userRef.doc(email).set({
+          userEmail: email,
+          userPoints: 0,
+          userRank: 0,
+          userTasks: [],
+          userUsername: "",
+        })
       }
+      setSignupError('Account Created!');
     } catch (error) {
       setSignupError(error.message);
     }

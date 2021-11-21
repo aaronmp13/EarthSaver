@@ -4,9 +4,12 @@ import { SectionList, ScrollView, StyleSheet, Text, View, Button, Image} from 'r
 import Firebase from '../firebase/config';
 import * as firebase from "firebase";
 import * as Font from 'expo-font';
+import 'firebase/firestore';
 import uuid from "uuid";
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
+userRef = db.collection("users")
 
 const DATA = [
     {
