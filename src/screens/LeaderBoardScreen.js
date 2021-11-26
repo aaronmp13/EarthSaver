@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   });
 
 function sortDocs (doc) {
-  return await doc.orderBy('userRank').limit(10).get()
+  return await doc.orderBy('userPoints').limit(10).get() //gets the top 10 users based on points 
 }
   
 const DATA = [
