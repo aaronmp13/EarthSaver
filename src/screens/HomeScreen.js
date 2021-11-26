@@ -9,16 +9,25 @@ import uuid from "uuid";
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
-userRef = db.collection("users")
+userRef = db.collection("users");
+submissionRef = db.collection("submissions");
+
+async function email(doc) {
+  return doc.data()
+}
+
+async function getCurrentTimestamp() {
+  return Date.now()
+}
 
 const DATA = [
     {
       title: "My Points",
-      data: ["0"]
+      data: globalUserDoc.get("userPoints")
     },
     {
       title: "Tasks To Do",
-      data: ["X", "X"]
+      data: globalUserDoc.get("userTasks")
     },
   ];
   
@@ -83,6 +92,12 @@ class HomeScreen extends React.Component {
       if (!pickerResult.cancelled) {
         const uploadUrl = await uploadImageAsync(pickerResult.uri);
         this.setState({ image: uploadUrl });
+        let currentTimestamp = getCurrentTimestamp();
+        submissionRef.doc(currentTimestamp).set({ //creates doc for submission based on image link, time submitted, and the account correlated
+          userEmail: globalUserDoc.data().userEmail,
+          userTimestamp: currentTimestamp,
+          userImage: pickerResult,
+        })
       }
     } catch (e) {
       console.log(e);

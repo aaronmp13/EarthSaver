@@ -4,6 +4,9 @@ import Firebase from '../firebase/config';
 import { useState } from 'react';
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
+userRef = db.collection("users")
+
 
 const styles = StyleSheet.create({
     container: {
@@ -24,6 +27,11 @@ function LoginScreen({navigation}) {
       if (email !== '' && password !== '') {
         console.log("hit")
         await auth.signInWithEmailAndPassword(email, password);
+        await globalUserDoc == userRef.where(userEmail, "==", email); //Gets the current doc set up at the sign up screen
+        if(globalUserDoc.empty)
+        {
+          console.log("login failed to capture doc");
+        }
         navigation.navigate('Home')
       }
     } catch (error) {

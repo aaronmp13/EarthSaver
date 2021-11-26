@@ -73,3 +73,6 @@ const DATA = [
     }
   }
   export default Feed;
+
+  //get the (5) latest submission docs by timestamp 
+  //display them in DATA items

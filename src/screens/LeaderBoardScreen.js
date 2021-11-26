@@ -1,5 +1,11 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Text, StatusBar, ScrollView } from 'react-native';
+import Firebase from '../firebase/config';
+import 'firebase/firestore';
+
+const auth = Firebase.auth();
+const db = Firebase.firestore();
+userRef = db.collection("users")
 
 const styles = StyleSheet.create({
     container: {
@@ -20,12 +26,15 @@ const styles = StyleSheet.create({
     },
   });
 
+function sortDocs (doc) {
+  return await doc.orderBy('userRank').limit(10).get()
+}
   
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First User',
-    data: '5'
+    title: '1st',
+    data: '3'
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
