@@ -60,6 +60,11 @@ const App = () => {
             component={Feed}
             options={{ title: 'Feed' }}
           />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{ title: 'Profile' }}
+          />
         </Stack.Navigator>
 
     );
@@ -80,12 +85,10 @@ const TabNav = () => {
   return(
     <Tab.Navigator>
       <Tab.Screen name="Home Page" component={HomeScreen} />
-      {/* <Tab.Screen name="Feed" component={Feed} /> */}
       <Tab.Screen name="Leaderboards" component={LeaderBoardScreen} />
-      {/* <Tab.Screen name="Profile" component={Profile}/> */}
       <Tab.Screen name="Info" component={InfoScreen} />
-      {/* <Tab.Screen name="Profile" component={Profile}/> */}
       <Tab.Screen name="Feed" component={Feed} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }

@@ -1,38 +1,51 @@
 import React, { useReducer } from 'react';
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { RecyclerViewBackedScrollViewBase, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Firebase from '../firebase/config';
 import 'firebase/firestore';
 import '../../global.js';
 import { sessionStorage2 } from '../../global.js';
+import { render } from 'react-dom';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
 userRef = db.collection("users");
 
-  function Profile ({navigation}){
+function getEmail(){
+  let why = sessionStorage2.getItem("newUserEmail");
+  return why
+}
 
-    async function getDetail (detail){
-      userRef.doc(sessionStorage2.getItem("newUserEmail")).data().detail
-    }
-    profileUsername = getDetail(username)//globalUserDoc.get("userUsername");
-    profileEmail = getDetail(email)//globalUserDoc.get("userEmail");
-    profilePoints = getDetail(points)//globalUserDoc.get("userPoints");
-    profileRank = getDetail(rank)//gloablUserDoc.get("userRank");
+  function Profile ({navigation}){
+    var profileEmail;
+    var profilePoints;
+    var emailTemp = getEmail()
+    console.log(emailTemp)
+    userRef.where("userEmail", "==", emailTemp).get().then(function(querySnapshot){
+      querySnapshot.forEach(function(emailDoc){
+        sessionStorage2.setItem("profileEmail", emailDoc.data().userEmail)
+        sessionStoreage2.setItem("profilePoints", emailDoc.data().userPoints)
+      //let profileDoc = emailDoc;
+      //profileEmail = profileDoc.data().userEmail
+      //profilePoints = profileDoc.data().userPoints
+      //profileRank = profileDoc.data().userTasks
+      })
+    })
+    profileEmail = sessionStorage2.getItem("profileEmail");
+    profilePoints = sessionStorage2.getItem("profilePoints")
 
     return (
     <View style={styles.container}>
       <StatusBar style='light-content' />
         <View style={styles.profile}>
-          <Text style={styles.profileText}>{profileUsername}</Text> 
+          <Text style={styles.profileText}>{profileEmail}</Text> 
         </View>
-    <Text style={styles.rankText}>{profileRank}</Text>
-    <Text style={styles.rankSubText}>"with"</Text>
+    <Text style={styles.rankText}>{"What"}</Text>
     <Text style={styles.rankText}>{profilePoints}</Text>
-    <Text style={styles.rankSubText}>"points!"</Text>
     <Text style={styles.settingsText}></Text>
     </View>
     );
   }
+export default Profile;
 
   const styles = StyleSheet.create({
     container: {
