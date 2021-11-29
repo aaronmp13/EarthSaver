@@ -30,23 +30,29 @@ const styles = StyleSheet.create({
   });
 
 async function sortDocs (doc) {
-  return doc.orderBy('userPoints').limit(10).get() //gets the top 10 users based on points 
+  let docContainer = [];
+  let docRanks = doc.orderBy('userPoints', 'desc').limit(5).get().then(querySnapshot => {
+    querySnapshot.forEach(document =>{
+      docContainer[document] = document.data();
+    })
+  }) //gets the top 10 users based on points 
+  return docContainer
 }
   
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: 'sortDocs(userRef)',
     title: '1st',
     data: '3'
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second User',
+    title: '2nd',
     data: '5'
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third User',
+    title: '3rd',
     data: '5'
   },
 ];
@@ -63,7 +69,12 @@ class LeaderBoardScreen extends React.Component {
             <Item title={item.title} />
             
           );
-        
+          //const enumDocs = () => {
+          //  let what = sortDocs(userRef);
+          //  for(let i = 0; i<what.length(); i++){
+          //    sessionStorage2.setItem("newUserEmail", actualEmailWhat)
+          //  }
+          //}
           return (
             <View style={styles.container}>
               <FlatList

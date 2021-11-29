@@ -65,7 +65,7 @@ const DATA = [];
       return (
         <View style={styles.container}>
             <SectionList
-                sections={newWhat}
+                sections={DATA}
                 keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) => <Item title={item} />}
                 renderSectionHeader={({ section: { title } }) => (

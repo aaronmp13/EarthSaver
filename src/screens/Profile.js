@@ -3,16 +3,16 @@ import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import Firebase from '../firebase/config';
 import 'firebase/firestore';
 import '../../global.js';
+import { sessionStorage2 } from '../../global.js';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
+userRef = db.collection("users");
 
   function Profile ({navigation}){
 
     async function getDetail (detail){
-      const [individualDetail, retrieveDetail] = useState('');
-      globalUserDoc.get().then(snapshot => retrieveDetail(snapshot.data(detail)));
-      return individualDetail
+      userRef.doc(sessionStorage2.getItem("newUserEmail")).data().detail
     }
     profileUsername = getDetail(username)//globalUserDoc.get("userUsername");
     profileEmail = getDetail(email)//globalUserDoc.get("userEmail");
