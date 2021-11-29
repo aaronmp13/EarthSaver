@@ -5,6 +5,8 @@ import 'firebase/firestore';
 import '../../global.js';
 import { sessionStorage2 } from '../../global.js';
 import { render } from 'react-dom';
+import './rankQuery.js'
+import rankQuery from './rankQuery.js';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
@@ -16,22 +18,25 @@ function getEmail(){
 }
 
   function Profile ({navigation}){
-    var profileEmail;
-    var profilePoints;
     var emailTemp = getEmail()
     console.log(emailTemp)
+    let ranks = new rankQuery;
+    ranks.getRankQuery(userRef, 5)
+    ranks.getCurrentRank(userRef, emailTemp)
     userRef.where("userEmail", "==", emailTemp).get().then(function(querySnapshot){
       querySnapshot.forEach(function(emailDoc){
         sessionStorage2.setItem("profileEmail", emailDoc.data().userEmail)
-        sessionStoreage2.setItem("profilePoints", emailDoc.data().userPoints)
-      //let profileDoc = emailDoc;
-      //profileEmail = profileDoc.data().userEmail
-      //profilePoints = profileDoc.data().userPoints
-      //profileRank = profileDoc.data().userTasks
+        sessionStorage2.setItem("profilePoints", emailDoc.data().userPoints)
+        sessionStorage2.setItem("profileRank", emailDoc.data().userRank)
       })
     })
-    profileEmail = sessionStorage2.getItem("profileEmail");
-    profilePoints = sessionStorage2.getItem("profilePoints")
+    let profileEmail = sessionStorage2.getItem("profileEmail");
+    let profilePoints = sessionStorage2.getItem("profilePoints");
+    let profileRank = sessionStorage2.getItem("profileRank");
+    console.log('variables')
+    console.log(profileEmail)
+    console.log(profilePoints)
+
 
     return (
     <View style={styles.container}>
@@ -39,8 +44,11 @@ function getEmail(){
         <View style={styles.profile}>
           <Text style={styles.profileText}>{profileEmail}</Text> 
         </View>
-    <Text style={styles.rankText}>{"What"}</Text>
+    <Text style={styles.labelText}>{"You are ranked:"}</Text>
+    <Text style={styles.rankText}>{profileRank}</Text>
+    <Text style={styles.labelText}>{"with"}</Text>
     <Text style={styles.rankText}>{profilePoints}</Text>
+    <Text style={styles.labelText}>{"points!"}</Text>
     <Text style={styles.settingsText}></Text>
     </View>
     );
@@ -58,7 +66,7 @@ export default Profile;
   
     },
     profileText: {
-      fontSize: 14,
+      fontSize: 32,
       fontWeight: "bold",
       alignItems: "center",
       color: "#000"
@@ -68,12 +76,12 @@ export default Profile;
       color: "#000"
     },
     rankText: {
-      fontSize: 12,
+      fontSize: 28,
       fontWeight: "bold",
       color: "#000"
     },
     labelText: {
-      fontSize: 12,
+      fontSize: 20,
       fontWeight: "bold",
       color: "#808080"
     },
