@@ -1,6 +1,12 @@
 import React from 'react';
 import { SectionList, FlatList, StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Firebase from '../firebase/config';
+import * as firebase from "firebase";
+import 'firebase/firestore';
+import '../../global.js';
+import {sessionStorage2} from '../../global.js';
+import './LoginScreen.js';
 
 const styles = StyleSheet.create({
     container: {
@@ -27,24 +33,12 @@ const styles = StyleSheet.create({
     },
   });
 
-const DATA = [
-    {
-      title: "Main dishes",
-      data: ["X"]
-    },
-    {
-      title: "Sides",
-      data: ["X"]
-    },
-    {
-      title: "Drinks",
-      data: ["X"]
-    },
-    {
-      title: "Desserts",
-      data: ["X"]
-    }
-  ];
+  const auth = Firebase.auth();
+  const db = Firebase.firestore();
+  userRef = db.collection("users");
+  submissionRef = db.collection("submissions");
+
+const DATA = [];
   
   const Item = ({ title }) => (
     <ScrollView style={styles.item}>
@@ -57,11 +51,21 @@ const DATA = [
         const renderItem = ({ item }) => (
             <Item title={item.title} />
         );
-
+        const getFeed = ({num}) => {
+          let newData
+          feedQuery = submissionRef.orderBy('userTimestamp').limit(num).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc){
+              newData.push({title: doc.data().userEmail, item: doc.data().userTimestamp})
+              console.log(doc.data().userEmail)
+            })
+          });
+          return newData;
+        }
+        let newWhat = getFeed(5)
       return (
         <View style={styles.container}>
             <SectionList
-                sections={DATA}
+                sections={newWhat}
                 keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) => <Item title={item} />}
                 renderSectionHeader={({ section: { title } }) => (

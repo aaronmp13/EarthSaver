@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import Firebase from '../firebase/config';
 import 'firebase/firestore';
+import '../../global.js';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();

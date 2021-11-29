@@ -1,33 +1,27 @@
 import React from 'react';
 import * as ImagePicker from "expo-image-picker"
-import { SectionList, ScrollView, StyleSheet, Text, View, Button, Image} from 'react-native';
+import { SectionList, ScrollView, StyleSheet, Text, View, Button, Image, DatePickerIOSBase} from 'react-native';
 import Firebase from '../firebase/config';
 import * as firebase from "firebase";
 import * as Font from 'expo-font';
 import 'firebase/firestore';
 import uuid from "uuid";
+import {sessionStorage2} from '../../global.js';
+import userDoc from './LoginScreen.js';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
 userRef = db.collection("users");
 submissionRef = db.collection("submissions");
 
-async function email(doc) {
-  return doc.data()
-}
-
-async function getCurrentTimestamp() {
-  return Date.now()
-}
-
 const DATA = [
     {
       title: "My Points",
-      data: globalUserDoc.get("userPoints")
+      data: ['X']
     },
     {
       title: "Tasks To Do",
-      data: globalUserDoc.get("userTasks")
+      data: ['X']
     },
   ];
   
@@ -92,12 +86,15 @@ class HomeScreen extends React.Component {
       if (!pickerResult.cancelled) {
         const uploadUrl = await uploadImageAsync(pickerResult.uri);
         this.setState({ image: uploadUrl });
-        let currentTimestamp = getCurrentTimestamp();
-        submissionRef.doc(currentTimestamp).set({ //creates doc for submission based on image link, time submitted, and the account correlated
-          userEmail: globalUserDoc.data().userEmail,
+        let currentTimestamp = new Date;
+        let currentEmail = sessionStorage2.getItem("newUserEmail"); //complimentary component for retrieving the "user ID" from the login 
+        console.log(currentEmail);
+        submissionRef.doc(currentTimestamp.getTime().toString()).set({ 
+          userEmail: currentEmail,
           userTimestamp: currentTimestamp,
-          userImage: pickerResult,
+          userImage: uploadUrl,
         })
+        console.log("image upload success");
       }
     } catch (e) {
       console.log(e);

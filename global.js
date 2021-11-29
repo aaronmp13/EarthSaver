@@ -1,6 +1,30 @@
-import React from 'react';
-import 'firebase/firestore';
-import Firebase from '../firebase/config';
+class Storage {
+    constructor() {
+        this.data = new Map();
+    }
 
-global.globalUserDoc;
+    key(n) {
+        return [...this.data.keys()][n];
+    }
+    getItem(key) {
+        return this.data.get(key);
+    }
+    get length() {
+        return this.data.size;
+    }
 
+    setItem(key, value) {
+        this.data.set(key, value);
+    }
+    removeItem(key) {
+        this.data.delete(key);
+    }
+    clear() {
+        this.data = new Map();
+    }
+    
+}
+
+let sessionStorage2 = globalThis.sessionStorage = globalThis.sessionStorage ?? new Storage();
+
+export { Storage, sessionStorage2 };

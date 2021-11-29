@@ -36,8 +36,7 @@ function SignUpScreen({navigation}) {
           userTasks: [],
           userUsername: "",
         })
-        let dataTest = userRef.doc(email).data();
-        console.log('${JSON.stringify(dataTest)}')
+        let dataTest = userRef.doc(email).get();
       }
       setSignupError('Account Created!');
     } catch (error) {

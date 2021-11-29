@@ -2,6 +2,9 @@ import React from 'react';
 import { View, FlatList, StyleSheet, Text, StatusBar, ScrollView } from 'react-native';
 import Firebase from '../firebase/config';
 import 'firebase/firestore';
+import '../../global.js';
+import {sessionStorage2} from '../../global.js';
+import './LoginScreen.js';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
@@ -26,8 +29,8 @@ const styles = StyleSheet.create({
     },
   });
 
-function sortDocs (doc) {
-  return await doc.orderBy('userPoints').limit(10).get() //gets the top 10 users based on points 
+async function sortDocs (doc) {
+  return doc.orderBy('userPoints').limit(10).get() //gets the top 10 users based on points 
 }
   
 const DATA = [
