@@ -11,6 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="48572f7d-f14f-4739-acea-f0653046664d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/LoginScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/LoginScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/rankQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/rankQuery.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

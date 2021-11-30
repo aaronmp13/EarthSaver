@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
     checkIfExisting(email){
       return new Promise((resolve, reject) => {
-      const getCaseID = userRef.where('userEmail', "==", email).get().then(function(querySnapshot){
+      userRef.where('userEmail', "==", email).get().then(function(querySnapshot){
         querySnapshot.forEach(function(emailDoc){
           let emailReturn = emailDoc.data().userEmail;
           this.docEmail = emailReturn;

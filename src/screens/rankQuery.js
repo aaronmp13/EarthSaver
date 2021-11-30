@@ -11,14 +11,21 @@ userRef = db.collection("users")
 
 class rankQuery{
 
-    getRankQuery(col, num){
-        var i = 1;
-        col.orderBy('userPoints', 'desc').limit(num).get()
+    getRankQuery(col){
+        var i = 0;
+        col.orderBy('userPoints', 'desc').get()
         .then(querySnapshot => {
             querySnapshot.forEach(doc =>{
-                const temp = doc.data();
-                tempRank = temp.userRank+1;
-                temp.ref.update(tempRank)
+                console.log('Query Data');
+                let temp = doc.data();
+                console.log(temp);
+                i += 1;
+                let tempRank = i;
+                console.log(tempRank);
+                console.log(temp.userEmail)
+                userRef.doc(temp.userEmail).update({
+                    userRank: tempRank
+                })
             })
         })
     }

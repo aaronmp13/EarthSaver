@@ -4,7 +4,6 @@ import Firebase from '../firebase/config';
 import 'firebase/firestore';
 import '../../global.js';
 import { sessionStorage2 } from '../../global.js';
-import { render } from 'react-dom';
 import './rankQuery.js'
 import rankQuery from './rankQuery.js';
 
@@ -21,8 +20,7 @@ function getEmail(){
     var emailTemp = getEmail()
     console.log(emailTemp)
     let ranks = new rankQuery;
-    ranks.getRankQuery(userRef, 5)
-    ranks.getCurrentRank(userRef, emailTemp)
+    ranks.getRankQuery(userRef)
     userRef.where("userEmail", "==", emailTemp).get().then(function(querySnapshot){
       querySnapshot.forEach(function(emailDoc){
         sessionStorage2.setItem("profileEmail", emailDoc.data().userEmail)
@@ -30,13 +28,12 @@ function getEmail(){
         sessionStorage2.setItem("profileRank", emailDoc.data().userRank)
       })
     })
-    let profileEmail = sessionStorage2.getItem("profileEmail");
-    let profilePoints = sessionStorage2.getItem("profilePoints");
-    let profileRank = sessionStorage2.getItem("profileRank");
+    var profileEmail = sessionStorage2.getItem("profileEmail");
+    var profilePoints = sessionStorage2.getItem("profilePoints");
+    var profileRank = sessionStorage2.getItem("profileRank");
     console.log('variables')
     console.log(profileEmail)
     console.log(profilePoints)
-
 
     return (
     <View style={styles.container}>

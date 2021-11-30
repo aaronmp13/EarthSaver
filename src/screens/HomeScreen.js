@@ -14,14 +14,19 @@ const db = Firebase.firestore();
 userRef = db.collection("users");
 submissionRef = db.collection("submissions");
 
+function getEmail(){
+  let why = sessionStorage2.getItem("newUserEmail");
+  return why
+}
+
 const DATA = [
     {
       title: "My Points",
-      data: ['X']
+      data: ['10']
     },
     {
       title: "Tasks To Do",
-      data: ['X']
+      data: ['Plant Trees']
     },
   ];
   
