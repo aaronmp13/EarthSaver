@@ -14,6 +14,8 @@ import Profile from './src/screens/Profile'
 import Feed from './src/screens/Feed'
 import { Provider } from 'react-redux';
 import store from './src/store'
+import { Ionicons } from '@expo/vector-icons';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,15 +53,16 @@ const App = () => {
             options={{ title: 'Sign Up' }}
           />
           <Stack.Screen
-            name="Home"
-            component={TabNav}
-            options={{ title: 'Earth Saver' }}
-          />
-          <Stack.Screen
             name="Feed"
             component={Feed}
             options={{ title: 'Feed' }}
           />
+          <Stack.Screen
+            name="Main"
+            component={TabNav}
+            options={{headerShown: false}}
+          />
+
           <Stack.Screen
             name="Profile"
             component={Profile}
@@ -84,11 +87,56 @@ const App = () => {
 const TabNav = () => {
   return(
     <Tab.Navigator>
-      <Tab.Screen name="Home Page" component={HomeScreen} />
-      <Tab.Screen name="Leaderboards" component={LeaderBoardScreen} />
-      <Tab.Screen name="Info" component={InfoScreen} />
-      <Tab.Screen name="Feed" component={Feed} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen 
+      name="Home" 
+      component={HomeScreen} 
+      options={{
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="home" color={color} size={size} />
+        ),
+      }}
+      />
+      <Tab.Screen 
+      name="Leaderboards" 
+      component={LeaderBoardScreen} 
+      options={{
+        tabBarLabel: 'Leaderboard',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="podium" color={color} size={size} />
+        ),
+      }}/>
+{/* 
+      <Tab.Screen 
+      name="Feed" 
+      component={Feed} 
+      options={{
+        tabBarLabel: 'Feed',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="aperture" color={color} size={size} />
+        ),
+      }}/>
+       */}
+      <Tab.Screen 
+      name="Profile Statistics" 
+      component={Profile} 
+      options={{
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="settings" color={color} size={size} />
+        ),
+      }}
+      />
+
+      <Tab.Screen 
+      name="Information" 
+      component={InfoScreen}
+      options={{
+        tabBarLabel: 'Info',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="help" color={color} size={size} />
+        ),
+      }} />
     </Tab.Navigator>
   );
 }

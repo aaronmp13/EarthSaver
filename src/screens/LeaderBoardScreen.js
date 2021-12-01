@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import { View, FlatList, StyleSheet, Text, StatusBar, ScrollView } from 'react-native';
 import Firebase from '../firebase/config';
 import 'firebase/firestore';
@@ -6,9 +6,11 @@ import '../../global.js';
 import {sessionStorage2} from '../../global.js';
 import './LoginScreen.js';
 
+
 const auth = Firebase.auth();
 const db = Firebase.firestore();
 userRef = db.collection("users")
+var leaderboard = [];
 
 const styles = StyleSheet.create({
     container: {
@@ -16,46 +18,18 @@ const styles = StyleSheet.create({
       marginTop: StatusBar.currentHeight || 0,
     },
     item: {
-      backgroundColor: '#dfede0',
-      padding: 10,
-      marginVertical: 1,
+      backgroundColor: '#85efff',
+      padding: 20,
+      marginVertical: 3,
       marginHorizontal: 16,
       borderRadius: 5,
       alignContent: 'center',
     },
     title: {
-      fontSize: 15,
+      fontSize: 20,
       justifyContent: 'center',
     },
   });
-
-async function sortDocs (doc) {
-  let docContainer = [];
-  let docRanks = doc.orderBy('userPoints', 'desc').limit(5).get().then(querySnapshot => {
-    querySnapshot.forEach(document =>{
-      docContainer[document] = document.data();
-    })
-  }) //gets the top 10 users based on points 
-  return docContainer
-}
-  
-const DATA = [
-  {
-    id: 'sortDocs(userRef)',
-    title: '1st',
-    data: '3'
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: '2nd',
-    data: '5'
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: '3rd',
-    data: '5'
-  },
-];
 
 const Item = ({ title }) => (
   <ScrollView style={styles.item}>
@@ -63,6 +37,40 @@ const Item = ({ title }) => (
   </ScrollView>
 );
 
+
+function LeaderBoardScreen(){
+  const [users,setUsers]=useState(null)
+  
+  useEffect( () => {
+    userRef.orderBy('userPoints', 'desc').onSnapshot(querySnapshot => {
+
+    const docContainer = [];
+    let i = 1;
+
+        querySnapshot.forEach(document => {
+          docContainer.push(i + ". " + document.get('userEmail'));
+          i = i+1;
+        })
+        setUsers(docContainer);
+    })
+  })
+
+  const renderItem = ({ item }) => (
+    <Item title={item} />
+  );
+
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+                data={users}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+              />
+    </View>
+  )
+}
+/*
 class LeaderBoardScreen extends React.Component {
     render() {
         const renderItem = ({ item }) => (
@@ -86,6 +94,7 @@ class LeaderBoardScreen extends React.Component {
           );
         }
     }
+    */
         
 
   export default LeaderBoardScreen;

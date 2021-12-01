@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { RecyclerViewBackedScrollViewBase, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Firebase from '../firebase/config';
 import 'firebase/firestore';
@@ -17,34 +17,40 @@ function getEmail(){
 }
 
   function Profile ({navigation}){
+
+    const [rank,setrank]=useState(null);
+    const [points, setpoints]=useState(null);
+    const [email, setmail]=useState(null);
+
     var emailTemp = getEmail()
     console.log(emailTemp)
     let ranks = new rankQuery;
     ranks.getRankQuery(userRef)
-    userRef.where("userEmail", "==", emailTemp).get().then(function(querySnapshot){
-      querySnapshot.forEach(function(emailDoc){
-        sessionStorage2.setItem("profileEmail", emailDoc.data().userEmail)
-        sessionStorage2.setItem("profilePoints", emailDoc.data().userPoints)
-        sessionStorage2.setItem("profileRank", emailDoc.data().userRank)
+    
+    
+    useEffect( () => {
+      userRef.where("userEmail", "==", emailTemp).get().then(function(querySnapshot){
+        querySnapshot.forEach(function(emailDoc){
+          sessionStorage2.setItem("profileEmail", emailDoc.data().userEmail)
+          sessionStorage2.setItem("profilePoints", emailDoc.data().userPoints)
+          sessionStorage2.setItem("profileRank", emailDoc.data().userRank)
+          setmail(emailDoc.data().userEmail);
+          setrank(emailDoc.data().userRank);
+          setpoints(emailDoc.data().userPoints);
+        })
       })
     })
-    var profileEmail = sessionStorage2.getItem("profileEmail");
-    var profilePoints = sessionStorage2.getItem("profilePoints");
-    var profileRank = sessionStorage2.getItem("profileRank");
-    console.log('variables')
-    console.log(profileEmail)
-    console.log(profilePoints)
-
+  
     return (
     <View style={styles.container}>
       <StatusBar style='light-content' />
         <View style={styles.profile}>
-          <Text style={styles.profileText}>{profileEmail}</Text> 
+          <Text style={styles.profileText}>{email}</Text> 
         </View>
     <Text style={styles.labelText}>{"You are ranked:"}</Text>
-    <Text style={styles.rankText}>{profileRank}</Text>
+    <Text style={styles.rankText}>{rank}</Text>
     <Text style={styles.labelText}>{"with"}</Text>
-    <Text style={styles.rankText}>{profilePoints}</Text>
+    <Text style={styles.rankText}>{points}</Text>
     <Text style={styles.labelText}>{"points!"}</Text>
     <Text style={styles.settingsText}></Text>
     </View>

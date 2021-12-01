@@ -55,7 +55,7 @@ let userDocEmail = new userDoc();
           var actualEmailWhat = await userDocEmail.checkIfExisting(email);
           console.log(actualEmailWhat)
           sessionStorage2.setItem("newUserEmail", actualEmailWhat); //system to store the "user ID" for the current session
-          navigation.navigate('Home')
+          navigation.navigate('Main')
         }
       } catch (error) {
         console.log("invalid")

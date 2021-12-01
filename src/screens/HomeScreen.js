@@ -14,21 +14,49 @@ const db = Firebase.firestore();
 userRef = db.collection("users");
 submissionRef = db.collection("submissions");
 
+
+function refreshPage() {
+  window.location.reload(false);
+}
+
 function getEmail(){
   let why = sessionStorage2.getItem("newUserEmail");
+
   return why
 }
 
-const DATA = [
+var emailTemp = getEmail();
+
+
+if(userRef) {
+  try{
+      userRef.where("userEmail", "==", emailTemp).get().then(function(querySnapshot){
+        querySnapshot.forEach(function(emailDoc){
+          sessionStorage2.setItem("profileEmail", emailDoc.data().userEmail)
+          sessionStorage2.setItem("profilePoints", emailDoc.data().userPoints)
+          sessionStorage2.setItem("profileRank", emailDoc.data().userRank)
+        })
+      })
+    }
+  catch (error){
+      console.log('error');
+    }
+}
+
+
+
+var DATA = [
     {
       title: "My Points",
-      data: ['10']
+      data: [sessionStorage2.getItem("profilePoints")]
     },
     {
       title: "Tasks To Do",
-      data: ['Plant Trees']
+      data: [sessionStorage2.getItem("userTasks")]
     },
   ];
+
+// console.log("JJ", sessionStorage2.getItem("profilePoints"));
   
 const Item = ({ title }) => (
   <ScrollView style={styles.item}>
@@ -61,10 +89,15 @@ async function uploadImageAsync(uri) {
 }
 
 class HomeScreen extends React.Component {
+
+
   state = {
     image: null,
     uploading: false,
   };
+
+  refreshPage
+
 
   async componentDidMount() {
     if (Platform.OS !== "web") {
