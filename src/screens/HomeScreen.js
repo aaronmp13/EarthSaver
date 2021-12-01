@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ImagePicker from "expo-image-picker"
-import { SectionList, ScrollView, StyleSheet, Text, View, Button, Image, DatePickerIOSBase} from 'react-native';
+import { SectionList, ScrollView, StyleSheet, Text, View, TouchableOpacity, Image, DatePickerIOSBase, SafeAreaView} from 'react-native';
 import Firebase from '../firebase/config';
 import * as firebase from "firebase";
 import * as Font from 'expo-font';
@@ -56,7 +56,6 @@ var DATA = [
     },
   ];
 
-// console.log("JJ", sessionStorage2.getItem("profilePoints"));
   
 const Item = ({ title }) => (
   <ScrollView style={styles.item}>
@@ -158,22 +157,26 @@ class HomeScreen extends React.Component {
       let { image } = this.state;
 
       return (
+        <SafeAreaView style={{flex: 1}}>
+        
         <View style={styles.container}>
-            <SectionList
+            {/*<SectionList
                 sections={DATA}
                 keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) => <Item title={item} />}
                 renderSectionHeader={({ section: { title } }) => (
                 <Text style={styles.header}>{title}</Text>
                 )}
-            />
-            <Button
+                />*/}
+            <TouchableOpacity
             onPress={this._pickImage}
             title={'Upload Image'}
             style={styles.item}
             >
-            </Button>
+              <Text style={styles.submissionText}>Upload an Image</Text>
+            </TouchableOpacity>
         </View>
+        </SafeAreaView>
       );
     }
 } 
@@ -189,21 +192,25 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       //fontFamily: 'Raleway-Black',
     },
-
     item: {
         backgroundColor: 'dodgerblue',
-        padding: 10,
+        padding: 30,
         marginVertical: 10,
-        marginHorizontal: 20,
+        marginHorizontal: 40,
         borderRadius: 10,
         shadowOpacity: 20,
         shadowColor: 'black',
         //fontFamily: "Roboto"
     },
-
     title: {
       fontSize: 25,
       color: 'white',
+      //fontFamily: "Roboto",
+    },
+    submissionText: {
+      fontSize: 25,
+      color: 'white',
+      textAlign: 'center'
       //fontFamily: "Roboto",
     },
     header: {
@@ -212,4 +219,19 @@ const styles = StyleSheet.create({
         marginVertical: 0,
         //fontFamily: "Roboto"
     },
+    submission: {
+      fontSize: 30,
+      color: 'white',
+      marginVertical: 5,
+      marginHorizontal: 15,
+      textAlign: 'center',
+    },
+    backgroundFade: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      height:300
+    }
   });
