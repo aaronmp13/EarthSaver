@@ -1,9 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, Button, TextInput, UseContext} from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, Image, View, Button, TextInput, UseContext} from 'react-native';
 import Firebase from '../firebase/config';
 import { useState } from 'react';
 import '../../global.js';
 import { Storage, sessionStorage2 } from '../../global.js';
+import { useFonts, Inter_100Thin, Inter_200ExtraLight} from '@expo-google-fonts/inter';
+import AppLoading from 'expo-app-loading';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
@@ -15,7 +17,16 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      fontFamily: 'Raleway-Black',
+      fontFamily: 'Inter_200ExtraLight',
+    },
+    text: {
+
+    },
+
+    inputs: {
+      fontFamily: 'Inter_200ExtraLight',
+      padding: 20,
+      fontSize: 15,
     },
   });
 
@@ -67,24 +78,35 @@ let userDocEmail = new userDoc();
       navigation.navigate('SignUp')
     };
     
+
+    let [fontsLoaded] = useFonts({
+      Inter_100Thin,
+      Inter_200ExtraLight,
+    });
+  
+    if (!fontsLoaded) {
+      return <AppLoading />;
+    } else {
+
       return (
         <View style={styles.container}>
-          <Text style={{fontSize: 20, padding: 20}}>Enter Credentials</Text>
-          <TextInput style={{padding: 5}} placeholder="Email" keyboardType="email-address" onChangeText={onChangeEmail}/>
-          <TextInput style={{padding: 20}} placeholder="Password" keyboardType="visible-password" onChangeText={onChangePassword}/>
+          <Text style={{fontFamily: 'Inter_100Thin', fontSize: 40, padding: 20}}>Enter Credentials</Text>
+          <TextInput style={styles.inputs} placeholder="Email" keyboardType="email-address" onChangeText={onChangeEmail}/>
+          <TextInput style={styles.inputs} placeholder="Password" keyboardType="visible-password" onChangeText={onChangePassword}/>
   
-        <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 200, backgroundColor:'dodgerblue', alignItems: 'center'}} onPress={onLogin}>
+        <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 200, backgroundColor:'#83bbf2', alignItems: 'center'}} onPress={onLogin}>
           <Text style={{color: '#ffff'}}>L O G I N</Text>
         </TouchableOpacity>
   
-        <Text style={{marginTop: 20}}>Don't have an account?</Text>
+        <Text style={{fontFamily: 'Inter_200ExtraLight', marginTop: 20}}>Don't have an account?</Text>
   
         <TouchableOpacity onPress={toSignUp}>
-          <Text style={{color: 'dodgerblue'}}>Sign Up</Text>
+          <Text style={{fontFamily: 'Inter_200ExtraLight', color: '#83bbf2'}}>Sign Up</Text>
         </TouchableOpacity>
   
         </View>
       );
+    }
   }
   
   export default LoginScreen;

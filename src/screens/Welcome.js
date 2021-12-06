@@ -1,6 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Image, Text, View, Button, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useFonts, Inter_100Thin, Inter_200ExtraLight} from '@expo-google-fonts/inter';
+import AppLoading from 'expo-app-loading';
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -8,7 +12,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      fontFamily: 'Raleway-Black',
     },
 
     title: {
@@ -16,26 +19,36 @@ const styles = StyleSheet.create({
     },
   });
 
-class Welcome extends React.Component {
-  render() {
+
+function Welcome ({navigation}) {
+  let [fontsLoaded] = useFonts({
+    Inter_100Thin,
+    Inter_200ExtraLight,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+
     return (
       <View style={styles.container}>
+
         
         <View style={{flex: 2}}>
         </View>
 
         <View style={{flex: 0.5}}>
-          <Text style={{fontSize: 40, alignItems: 'center'}}>Earth Saver</Text>
+          <Text style={{fontFamily: 'Inter_100Thin', fontSize: 40, alignItems: 'center'}}>Earth Saver</Text>
         </View>
 
         <View style={{flex: 0.5}}>
-          <Text>saving the earth one task at a time</Text>
+          <Text style={{fontFamily: 'Inter_200ExtraLight',}}>saving the earth one task at a time</Text>
         </View>
 
         <View style={{flex: 2,}}>
 
-          <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 100, backgroundColor:'dodgerblue', alignItems: 'center'}} onPress={()=>this.props.navigation.navigate('Login')}>
-            <Text style={{color: 'white'}}>E N T E R</Text>
+          <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 160, backgroundColor:'dodgerblue', alignItems: 'center'}} onPress={()=>navigation.navigate('Login')}>
+            <Text style={{fontFamily: 'Inter_200ExtraLight', color: 'white'}}>E N T E R</Text>
           </TouchableOpacity>
         </View>
 
@@ -44,6 +57,5 @@ class Welcome extends React.Component {
     );
   }
 }
-
 
 export default Welcome;

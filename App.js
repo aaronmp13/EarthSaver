@@ -94,7 +94,7 @@ const TabNav = () => {
       }}
       />
       <Tab.Screen 
-      name="Leaderboards" 
+      name="Leaderboard" 
       component={LeaderBoardScreen} 
       options={{
         tabBarLabel: 'Leaderboard',
@@ -124,7 +124,7 @@ const TabNav = () => {
       }}
       />
 
-      <Tab.Screen 
+      {/* <Tab.Screen 
       name="Information" 
       component={InfoScreen}
       options={{
@@ -132,7 +132,7 @@ const TabNav = () => {
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="help" color={color} size={size} />
         ),
-      }} />
+      }} /> */}
     </Tab.Navigator>
   );
 }

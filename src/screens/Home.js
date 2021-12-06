@@ -6,6 +6,9 @@ import '../../global.js';
 import { sessionStorage2 } from '../../global.js';
 import './rankQuery.js'
 import rankQuery from './rankQuery.js';
+import AppLoading from 'expo-app-loading';
+import { useFonts, Inter_100Thin, Inter_200ExtraLight} from '@expo-google-fonts/inter';
+
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
@@ -15,19 +18,25 @@ submissionRef = db.collection("submissions");
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      marginTop: StatusBar.currentHeight || 0,
+        justifyContent: 'center', 
+        // alignItems: 'center', 
+        marginBottom: 50,
     },
     item: {
-      backgroundColor: '#85efff',
-      padding: 20,
-      marginVertical: 20,
+    //   backgroundColor: '#85efff',
+    //   padding: 20,
+      marginVertical: 10,
       borderRadius: 5,
       alignContent: 'center',
+      fontFamily: 'Inter_100Thin',
+      marginHorizontal: 5,
+
     },
     title: {
       fontSize: 20,
-      justifyContent: 'center',
+      marginHorizontal: 5,
+      justifyContent: 'flex-start',
+      fontFamily: 'Inter_200ExtraLight',
     },
   });
 
@@ -57,7 +66,7 @@ function Home () {
 
     useEffect( () =>{
 
-        submissionRef.onSnapshot(querySnapshot => {
+        submissionRef.orderBy('userTimestamp', 'desc').onSnapshot(querySnapshot => {
 
             const docContainer = [];
 
@@ -70,6 +79,15 @@ function Home () {
         })
 
     })
+
+    let [fontsLoaded] = useFonts({
+        Inter_100Thin,
+        Inter_200ExtraLight,
+      });
+    
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      } else {
 
     return (
         
@@ -84,21 +102,25 @@ function Home () {
 
                     renderItem={ ({ item, index }) => (
 
-                        <View style={{justifyContent: 'center', alignItems: 'center',}}>
-                            <Text> {item[1]} </Text>
+                        <View style={styles.container}>
+                            <Text style={styles.title}> {item[1]} </Text>
 
                             <Image source={{uri: item[0]}} /* Use item to set the image source */
 
                             key={index} /* Important to set a key for list items,
                                             but it's wrong to use indexes as keys, see below */
                             style={{
-                                width: '100%',
-                                borderRadius: 10,
+                                width: '98%',
+                                borderRadius: 20,
                                 aspectRatio: 1,
+                                margin:3,
+                                
                             }}
                             />
 
-                            <Text> {item[2].toDate().toString()} </Text>
+                            <Text style={styles.item}> {item[2].toDate().toString()} </Text>
+
+                            
                         </View>
 
                         
@@ -107,6 +129,7 @@ function Home () {
             
         </View>
     )
+                        }
 }
 
 export default Home;

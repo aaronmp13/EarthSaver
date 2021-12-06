@@ -3,6 +3,8 @@ import { TouchableOpacity, StyleSheet, Text, View, Button, TextInput} from 'reac
 import Firebase from '../firebase/config';
 import { useState } from 'react';
 import 'firebase/firestore';
+import { useFonts, Inter_100Thin, Inter_200ExtraLight} from '@expo-google-fonts/inter';
+import AppLoading from 'expo-app-loading';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
@@ -48,20 +50,29 @@ function SignUpScreen({navigation}) {
     navigation.navigate('Login')
   };
   
+  let [fontsLoaded] = useFonts({
+    Inter_100Thin,
+    Inter_200ExtraLight,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+
     return (
       <View style={styles.container}>
         
       
       
-        <Text style={{fontSize: 20, padding: 20,}}>Create Credentials</Text>
+        <Text style={{fontFamily: 'Inter_100Thin', fontSize: 40, padding: 20,}}>Create Credentials</Text>
         {signupError ? <Text>{signupError}</Text> : null}
-        <TextInput style={{padding: 5}} placeholder="Email" keyboardType="email-address" onChangeText={setEmail}/>
-        <TextInput style={{padding: 20}} placeholder="Password" keyboardType="visible-password" onChangeText={setPassword}/>
+        <TextInput style={{fontFamily: 'Inter_200ExtraLight', padding: 5}} placeholder="Email" keyboardType="email-address" onChangeText={setEmail}/>
+        <TextInput style={{fontFamily: 'Inter_200ExtraLight', padding: 20}} placeholder="Password" keyboardType="visible-password" onChangeText={setPassword}/>
 
 
       <View style={{}}>
         
-      <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 200, backgroundColor:'dodgerblue', alignItems: 'center'}} onPress={onSignup}>
+      <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 200, backgroundColor:'#83bbf2', alignItems: 'center'}} onPress={onSignup}>
         <Text style={{color: '#ffff'}}>S I G N  U P</Text>
       </TouchableOpacity>
       </View>
@@ -79,6 +90,7 @@ function SignUpScreen({navigation}) {
 
       </View>
     );
+  }
 }
 
 export default SignUpScreen;

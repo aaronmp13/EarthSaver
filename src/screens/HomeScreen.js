@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
       //fontFamily: 'Raleway-Black',
     },
     item: {
-        backgroundColor: 'dodgerblue',
+        backgroundColor: '#83bbf2',
         padding: 30,
         marginVertical: 10,
         marginHorizontal: 40,
