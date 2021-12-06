@@ -23,7 +23,6 @@ function getEmail(){
     const [email, setmail]=useState(null);
 
     var emailTemp = getEmail()
-    console.log(emailTemp)
     let ranks = new rankQuery;
     ranks.getRankQuery(userRef)
     

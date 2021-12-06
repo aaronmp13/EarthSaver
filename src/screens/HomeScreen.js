@@ -173,7 +173,7 @@ class HomeScreen extends React.Component {
             title={'Upload Image'}
             style={styles.item}
             >
-              <Text style={styles.submissionText}>Upload an Image</Text>
+              <Text style={styles.submissionText}>U P L O A D  I M A G E</Text>
             </TouchableOpacity>
         </View>
         </SafeAreaView>
@@ -198,8 +198,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         marginHorizontal: 40,
         borderRadius: 10,
-        shadowOpacity: 20,
-        shadowColor: 'black',
+        
         //fontFamily: "Roboto"
     },
     title: {

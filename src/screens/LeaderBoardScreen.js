@@ -65,36 +65,13 @@ function LeaderBoardScreen(){
       <FlatList
                 data={users}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={ (item, index ) => (
+                  index.toString()
+              )}
               />
     </View>
   )
 }
-/*
-class LeaderBoardScreen extends React.Component {
-    render() {
-        const renderItem = ({ item }) => (
-            <Item title={item.title} />
-            
-          );
-          //const enumDocs = () => {
-          //  let what = sortDocs(userRef);
-          //  for(let i = 0; i<what.length(); i++){
-          //    sessionStorage2.setItem("newUserEmail", actualEmailWhat)
-          //  }
-          //}
-          return (
-            <View style={styles.container}>
-              <FlatList
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-              />
-            </View>
-          );
-        }
-    }
-    */
         
 
   export default LeaderBoardScreen;

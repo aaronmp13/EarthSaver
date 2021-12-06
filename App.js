@@ -5,16 +5,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createSwitchNavigator } from "react-navigation";
 import './global.js'
 import HomeScreen from './src/screens/HomeScreen'
+import Home from './src/screens/Home'
 import InfoScreen from './src/screens/InfoScreen'
 import LoginScreen from './src/screens/LoginScreen'
 import SignUpScreen from  './src/screens/SignUpScreen'
 import LeaderBoardScreen from  './src/screens/LeaderBoardScreen'
 import Welcome from './src/screens/Welcome'
 import Profile from './src/screens/Profile'
-import Feed from './src/screens/Feed'
 import { Provider } from 'react-redux';
 import store from './src/store'
 import { Ionicons } from '@expo/vector-icons';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -53,11 +54,6 @@ const App = () => {
             options={{ title: 'Sign Up' }}
           />
           <Stack.Screen
-            name="Feed"
-            component={Feed}
-            options={{ title: 'Feed' }}
-          />
-          <Stack.Screen
             name="Main"
             component={TabNav}
             options={{headerShown: false}}
@@ -88,8 +84,8 @@ const TabNav = () => {
   return(
     <Tab.Navigator>
       <Tab.Screen 
-      name="Home" 
-      component={HomeScreen} 
+      name="Feed" 
+      component={Home} 
       options={{
         tabBarLabel: 'Home',
         tabBarIcon: ({ color, size }) => (
@@ -106,17 +102,17 @@ const TabNav = () => {
           <Ionicons name="podium" color={color} size={size} />
         ),
       }}/>
-{/* 
+
       <Tab.Screen 
-      name="Feed" 
-      component={Feed} 
+      name="Upload" 
+      component={HomeScreen} 
       options={{
-        tabBarLabel: 'Feed',
+        tabBarLabel: 'Upload',
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="aperture" color={color} size={size} />
         ),
       }}/>
-       */}
+      
       <Tab.Screen 
       name="Profile Statistics" 
       component={Profile} 
