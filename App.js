@@ -107,7 +107,7 @@ const TabNav = () => {
       name="Upload" 
       component={HomeScreen} 
       options={{
-        tabBarLabel: 'Upload',
+        tabBarLabel: 'Upload Task',
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="aperture" color={color} size={size} />
         ),

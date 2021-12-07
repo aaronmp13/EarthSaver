@@ -47,7 +47,7 @@ function Welcome ({navigation}) {
 
         <View style={{flex: 2,}}>
 
-          <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 160, backgroundColor:'dodgerblue', alignItems: 'center'}} onPress={()=>navigation.navigate('Login')}>
+          <TouchableOpacity style={{borderRadius: 5, padding: 7, width: 160, backgroundColor:'#83bbf2', alignItems: 'center'}} onPress={()=>navigation.navigate('Login')}>
             <Text style={{fontFamily: 'Inter_200ExtraLight', color: 'white'}}>E N T E R</Text>
           </TouchableOpacity>
         </View>

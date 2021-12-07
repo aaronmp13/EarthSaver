@@ -45,17 +45,6 @@ if(userRef) {
 
 
 
-var DATA = [
-    {
-      title: "My Points",
-      data: [sessionStorage2.getItem("profilePoints")]
-    },
-    {
-      title: "Tasks To Do",
-      data: [sessionStorage2.getItem("userTasks")]
-    },
-  ];
-
   
 const Item = ({ title }) => (
   <ScrollView style={styles.item}>
@@ -188,7 +177,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#F2F2F2',      
       justifyContent: 'center',
       //fontFamily: 'Raleway-Black',
     },

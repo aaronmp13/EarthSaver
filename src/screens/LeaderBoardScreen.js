@@ -61,45 +61,52 @@ let emailTemp = getEmail();
 function LeaderBoardScreen(){
 
   
-  const num_suffix = (i) => {
-      let j = i % 10,
-          k = i % 100;
+  const num_suffix = (num) => {
+      let j = num % 10,
+          k = num % 100;
       if (j == 1 && k != 11) {
-          return i + "st";
+          return num + "st";
       }
       if (j == 2 && k != 12) {
-          return i + "nd";
+          return num + "nd";
       }
       if (j == 3 && k != 13) {
-          return i + "rd";
+          return num + "rd";
       }
-      return i + "th";
+      return num + "th";
   }
 
 
   const [users,setUsers]=useState([]);  
   const [rank,setrank]=useState(null);
   const [points, setpoints]=useState(null);
-  const [email, setmail]=useState(null);
 
   useEffect( () => {
+
+    let i = 0
     userRef.orderBy('userPoints', 'desc').onSnapshot(querySnapshot => {
 
     const docContainer = [];
 
         querySnapshot.forEach(document => {
           docContainer.push( document.data() );
+          i = i + 1
         })
         setUsers(docContainer);
     })
 
     userRef.where("userEmail", "==", emailTemp).get().then(function(querySnapshot){
       querySnapshot.forEach(function(emailDoc){
-        setmail(emailDoc.data().userEmail);
         setrank(emailDoc.data().userRank);
         setpoints(emailDoc.data().userPoints);
       })
+    }).then(function() {
+      if (rank == 0){
+        setrank(i)
+      }
     })
+
+    
 
   })
 
@@ -112,9 +119,6 @@ function LeaderBoardScreen(){
       data:{users},
       sortBy:'userPoints',
       labelBy:'userEmail',
-      onRowPress: (item, index) => {
-        
-      }
   }
 
   let emailTemp = getEmail();
@@ -130,17 +134,15 @@ function LeaderBoardScreen(){
 
         <Text style={styles.headerText}> {num_suffix(rank)} </Text>
 
-        <Image style={{ height: 50, width: 50}} source={favIcon}/> 
+        <Image style={{ aspectRatio: 1, }} source={favIcon}/> 
 
-        <Text style={styles.headerText}> {points} pts</Text>
+        <Text style={styles.headerText}> {points}pts</Text>
       </View>
       
       <Leaderboard 
           data={users}
           sortBy='userPoints'
           labelBy='userEmail'
-          
-            
       />
     </View>
   )

@@ -8,6 +8,8 @@ import './rankQuery.js'
 import rankQuery from './rankQuery.js';
 import AppLoading from 'expo-app-loading';
 import { useFonts, Inter_100Thin, Inter_200ExtraLight} from '@expo-google-fonts/inter';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 
 const auth = Firebase.auth();
@@ -20,12 +22,18 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center', 
         // alignItems: 'center', 
-        marginBottom: 50,
     },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: '100%',
+      },
     item: {
     //   backgroundColor: '#85efff',
     //   padding: 20,
-      marginVertical: 10,
+      marginVertical: 20,
       borderRadius: 5,
       alignContent: 'center',
       fontFamily: 'Inter_100Thin',
@@ -92,17 +100,29 @@ function Home () {
     return (
         
         <View style={styles.container}>
+
+            {/* <LinearGradient
+                // Background Linear Gradient
+                colors={['transparent', '#F2F2F2']}
+                useAngle={true} 
+                start={{ x: 0.1, y: 0.2 }}
+                angle={45} 
+                angleCenter={{ x: 0.5, y: 0.5 }}
+                style={styles.background}
+            />
+             */}
             <FlatList
                     data={ images }
 
                     keyExtractor={ (item, index ) => (
                         index.toString()
                     )}
-
+                    
+                    maxToRenderPerBatch={5}
 
                     renderItem={ ({ item, index }) => (
 
-                        <View style={styles.container}>
+                        <View style={styles.item}>
                             <Text style={styles.title}> {item[1]} </Text>
 
                             <Image source={{uri: item[0]}} /* Use item to set the image source */
@@ -118,7 +138,13 @@ function Home () {
                             }}
                             />
 
-                            <Text style={styles.item}> {item[2].toDate().toString()} </Text>
+                            <Text style={{
+                                marginVertical: 5, 
+                                alignContent: 'center', 
+                                fontFamily: 'Inter_100Thin', 
+                                marginHorizontal: 5,
+                                
+                                }}> {item[2].toDate().toString()} </Text>
 
                             
                         </View>
